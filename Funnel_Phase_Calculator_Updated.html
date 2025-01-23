@@ -1,0 +1,185 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Amplitude das Fases do Funil</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 20px;
+            color: #333;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .form-container {
+            width: 48%;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .funnel-container {
+            width: 48%;
+            text-align: center;
+        }
+
+        .funnel {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .funnel-stage {
+            width: 100%;
+            max-width: 300px;
+            height: 50px;
+            margin: 10px 0;
+            border: 2px solid #ee296bff;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ee296bff;
+            background-color: #fff;
+            font-weight: bold;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        button {
+            padding: 10px 15px;
+            background-color: #ee296bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #d1245b;
+        }
+
+        .scroll-container {
+            margin-top: 20px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow-y: auto;
+            max-height: 200px;
+        }
+
+        footer {
+            margin-top: 20px;
+            padding: 10px;
+            text-align: center;
+            background-color: #ee296bff;
+            color: white;
+            font-size: 14px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Calculadora de Amplitude das Fases do Funil</h1>
+<div class="container">
+    <div class="form-container">
+        <h2>Insira os Dados</h2>
+
+        <label for="tam">TAM (Mercado Total Endereçável):</label>
+        <input type="number" id="tam" placeholder="Ex: 180">
+
+        <h3>Topo do Funil</h3>
+        <input type="number" id="topo1" placeholder="Termo 1">
+        <input type="number" id="topo2" placeholder="Termo 2">
+        <input type="number" id="topo3" placeholder="Termo 3">
+
+        <h3>Meio do Funil</h3>
+        <input type="number" id="meio1" placeholder="Termo 1">
+        <input type="number" id="meio2" placeholder="Termo 2">
+        <input type="number" id="meio3" placeholder="Termo 3">
+
+        <h3>Fundo do Funil</h3>
+        <input type="number" id="fundo1" placeholder="Termo 1">
+        <input type="number" id="fundo2" placeholder="Termo 2">
+        <input type="number" id="fundo3" placeholder="Termo 3">
+
+        <button onclick="calcularFunil()">Calcular</button>
+    </div>
+
+    <div class="funnel-container">
+        <h2>Visão do Funil</h2>
+        <div class="funnel">
+            <div id="topo-resultado" class="funnel-stage">Topo</div>
+            <div id="meio-resultado" class="funnel-stage">Meio</div>
+            <div id="fundo-resultado" class="funnel-stage">Fundo</div>
+        </div>
+    </div>
+</div>
+
+<div class="scroll-container">
+    <h3>Metodologia</h3>
+    <p>Uma abordagem inicial desenvolvida para mapear o funil com base em dados de comportamento online.</p>
+    <h4>Pontos Fortes da Abordagem</h4>
+    <ul>
+        <li><strong>Baseada em Comportamento Real:</strong> O volume de buscas reflete o interesse ativo dos usuários, oferecendo um indicador confiável de onde estão no funil.</li>
+        <li><strong>Rápida e de Baixo Custo:</strong> Utilizar ferramentas como o Google Keyword Planner ou SEMrush facilita a coleta de dados sem altos investimentos.</li>
+        <li><strong>Adaptável a Diferentes Mercados:</strong> A metodologia pode ser aplicada a outros segmentos e categorias além dos MEIs.</li>
+        <li><strong>Segmentação Contextual:</strong> Escolher termos específicos para cada etapa do funil permite capturar nuances no comportamento de busca.</li>
+    </ul>
+</div>
+
+<footer>
+    Metodologia experimental proprietária Company Hero Ltda. ©
+</footer>
+
+<script>
+    function calcularFunil() {
+        const tam = parseInt(document.getElementById('tam').value) || 0;
+
+        const topoTotal = (parseInt(document.getElementById('topo1').value) || 0) +
+                          (parseInt(document.getElementById('topo2').value) || 0) +
+                          (parseInt(document.getElementById('topo3').value) || 0);
+
+        const meioTotal = (parseInt(document.getElementById('meio1').value) || 0) +
+                          (parseInt(document.getElementById('meio2').value) || 0) +
+                          (parseInt(document.getElementById('meio3').value) || 0);
+
+        const fundoTotal = (parseInt(document.getElementById('fundo1').value) || 0) +
+                           (parseInt(document.getElementById('fundo2').value) || 0) +
+                           (parseInt(document.getElementById('fundo3').value) || 0);
+
+        const totalBusca = topoTotal + meioTotal + fundoTotal;
+
+        const formatNumber = (num) => num.toLocaleString('pt-BR');
+
+        const topoPorcentagem = totalBusca > 0 ? ((topoTotal / totalBusca) * tam).toFixed(0) : 0;
+        const meioPorcentagem = totalBusca > 0 ? ((meioTotal / totalBusca) * tam).toFixed(0) : 0;
+        const fundoPorcentagem = totalBusca > 0 ? ((fundoTotal / totalBusca) * tam).toFixed(0) : 0;
+
+        document.getElementById('topo-resultado').innerText = `Topo: ${formatNumber(topoPorcentagem)}`;
+        document.getElementById('meio-resultado').innerText = `Meio: ${formatNumber(meioPorcentagem)}`;
+        document.getElementById('fundo-resultado').innerText = `Fundo: ${formatNumber(fundoPorcentagem)}`;
+    }
+</script>
+
+</body>
+</html>
